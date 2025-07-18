@@ -4,7 +4,7 @@ const Input = ({setList}) => {
   const inputRef = useRef()
   const handleClick = () =>{
     let val = inputRef.current.value
-    setList(prev => [...prev , val] )
+    setList(prev => [...prev , {todo : val , hasPriority:false, done :false} ] )
     inputRef.current.value = ''
   }
 
