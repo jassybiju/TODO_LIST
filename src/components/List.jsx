@@ -1,5 +1,5 @@
 
-const List = ({ list, handleDelete ,setList }) => {
+const List = ({ list, handleDelete ,setList , doneShow }) => {
   
 
   
@@ -13,7 +13,6 @@ const List = ({ list, handleDelete ,setList }) => {
     e.preventDefault();
     console.log(e.currentTarget.id)
     const data = (e.dataTransfer.getData('text'))
-    // console.log(data)
     let temp = [...list]
    console.log(temp , e.target.id , data)
     let t = temp[e.currentTarget.id]
@@ -29,24 +28,17 @@ const List = ({ list, handleDelete ,setList }) => {
         <thead className="text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className=" px-6 py-3">
-              Product name
+              TODO
             </th>
-            <th scope="col" className="px-6 py-3">
-              Color
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Category
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Price
-            </th>
+            <th></th>
+            <th></th>
             <th scope="col" className="px-6 py-3">
               Action
             </th>
           </tr>
         </thead>
         <tbody>
-          {list.map((x, i) => (
+          {list.filter(x=>x.done !== doneShow).map((x, i) => (
             <tr  
               key={x.todo}
               id = {i}
@@ -54,15 +46,21 @@ const List = ({ list, handleDelete ,setList }) => {
               onDragStart={handleOnDrag}
               onDrop={handleOnDrop}
               onDragOver={(e)=>e.preventDefault()}
-              className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
-              <th
+              className="odd:bg-white odd:dark:bg-gray-900 line-thr even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200" >
+              
+              {x.done === true ? (<th
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                className="px-6 py-4 font-medium line-through text-gray-900 whitespace-nowrap dark:text-white">
                 {x.todo}
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
+              </th>) : (<th
+                scope="row"
+                className="px-6 py-4  font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {x.todo}
+              </th>)}
+              
+              <td className="px-6 py-4">{x.deadline}</td>
+              <td className="px-6 py-4" onClick={()=>setList(prev => prev.map(p=> (p===x) ? {...p , done : true} : {...p}))}>{x.done.toString()}</td>
+             
               <td className="px-6 py-4">
                 <a
                   onClick={() => handleDelete(x.todo)}
