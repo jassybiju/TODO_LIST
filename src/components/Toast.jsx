@@ -23,7 +23,7 @@ const Toast = ({todo}) => {
               </svg>
               <span class="sr-only">Error icon</span>
             </div>
-            <div class="ms-3 text-sm font-normal">{todo}</div>
+            <div class="ms-3 text-sm font-normal"><h1>{todo}</h1> Deadline Reached </div>
             <button
               onClick={()=>setToastShow(prev=> !prev)}
               type="button"

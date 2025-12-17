@@ -5,23 +5,18 @@ const List = ({ list, handleDelete ,setList , doneShow }) => {
   
 
   const handleOnDrag = (e) => {
-    e.dataTransfer.setData('text',e.target.id)
-    console.log(e.target.id)
-    
+    e.dataTransfer.setData('text',e.target.id)    
   };
   const handleOnDrop = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget.id)
+    
     const data = (e.dataTransfer.getData('text'))
     let temp = [...list]
-   console.log(temp , e.target.id , data)
     let t = temp[e.currentTarget.id]
     temp[e.currentTarget.id] = temp[data]
     temp[data] = t
     setList(temp)
-    
-    console.log(temp);
-  };
+    };
   return (
     <div className="  mx-auto lg:w-3/4 overflow-x-auto shadow-md rounded-xl mt-6 ">
       <table className="w-full   text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
